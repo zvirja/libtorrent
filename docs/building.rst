@@ -15,10 +15,9 @@ To download the latest version of libtorrent, clone the `github repo`__.
 
 __ https://github.com/arvidn/libtorrent
 
-The build systems supported "out of the box" in libtorrent are boost-build v2
-(BBv2) and autotools (for unix-like systems). If you still can't build after
-following these instructions, you can usually get help in the ``#libtorrent``
-IRC channel on ``irc.freenode.net``.
+The build systems supported "out of the box" in libtorrent are boost-build
+cmake. If you still can't build after following these instructions, you can
+usually get help in the ``#libtorrent`` IRC channel on ``irc.freenode.net``.
 
 .. warning::
 
@@ -32,9 +31,6 @@ IRC channel on ``irc.freenode.net``.
 	link against libtorrent as when you build it.
 
 	Boost-build supports propagating configuration options to dependencies.
-	When building using the makefiles, this is handled by setting the
-	configuration options in the pkg-config file. Always use pkg-config
-	when linking against libtorrent.
 
 building from git
 -----------------
@@ -79,10 +75,8 @@ You'll find boost here__.
 __ https://www.boost.org/users/download/#live
 
 Extract the archive to some directory where you want it. For the sake of this
-guide, let's assume you extract the package to ``c:\boost_1_68_0`` (I'm using
-a windows path in this example since if you're on linux/unix you're more likely
-to use the autotools). You'll need at least version 1.49 of the boost library
-in order to build libtorrent.
+guide, let's assume you extract the package to ``c:\boost_1_68_0``. You'll need
+at least version 1.49 of the boost library in order to build libtorrent.
 
 
 Step 2: Setup BBv2

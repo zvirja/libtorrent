@@ -42,7 +42,6 @@ libtool
 bin
 cmake-build-*
 config*
-Makefile
 build-aux
 test_tmp_*
 libtool
