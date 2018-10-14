@@ -20,6 +20,17 @@ matrix:
     - env: variant=test_debug sim=1 crypto=openssl toolset=gcc-sanitizer
     - env: variant=test_release coverage=1 tests=1 toolset=gcc-coverage python=1 python_dist=1
     - env: dist=1 toolset=gcc
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          packages:
+          - libc++-dev
+          - python-docutils
+          - python-aafigure
+          - python-pygments
+          - libboost1.55-all-dev
+          - libboost1.55-tools-dev
     - env: cmake=1 toolset=gcc
     - env: variant=test_debug crypto=openssl docs=1 tests=1 examples=1 tools=1 python=1 toolset=darwin ios=1
       os: osx
@@ -72,12 +83,10 @@ before_install:
   # we have to use python from brew rather than the system provided python
   # because of OSX System Integrity Protection, which prevents injecting
   # user-libraries (i.e. python modules) into system binaries (i.e. /usr/bin/python)
-  - 'if [[ "$docs" = "1" || "$dist" = "1" ]]; then
+  - 'if [ "$docs" = "1" ]; then
     pip install docutils;
     pip install Pygments;
-    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-      travis_retry brew install graphviz hunspell;
-    fi;
+    travis_retry brew install graphviz hunspell;
     fi'
 
   - if [ "$coverage" == "1" ]; then
@@ -279,7 +288,7 @@ script:
 
 # run through building a tarball and make sure it works
   - if [[ "$dist" == "1" ]]; then
-      RST2HTML=rst2html.py AAFIGURE=echo make dist &&
+      make dist &&
       cd libtorrent-rasterbar-1.1.2 &&
       make &&
       make examples python-binding tools examples check;
