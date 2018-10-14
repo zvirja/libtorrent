@@ -277,7 +277,7 @@ script:
 
 # run through building a tarball and make sure it works
   - if [[ "$dist" == "1" ]]; then
-      make dist &&
+      RST2HTML=rst2html.py AAFIGURE=echo make dist &&
       cd libtorrent-rasterbar-1.1.2 &&
       make &&
       make examples python-binding tools examples check;

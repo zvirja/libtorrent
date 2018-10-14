@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 
-from distutils.core import setup, Extension
-from distutils.sysconfig import get_config_vars
+from distutils.core import setup
 import os
 import platform
 import sys
@@ -52,25 +51,8 @@ def target_specific():
     return []
 
 
-# this is to pull out compiler arguments from the CXX flags set up by the
-# configure script. Specifically, the -std=c++11 flag is added to CXX and here
-# we pull out everything starting from the first flag (i.e. something starting
-# with a '-'). The actual command to call the compiler may be more than one
-# word, for instance "ccache g++".
-try:
-    with open('compile_cmd') as _file:
-        cmd = _file.read().split(' ')
-        while len(cmd) > 0 and not cmd[0].startswith('-'):
-            cmd = cmd[1:]
-        extra_cmd += ' '.join(cmd)
-except BaseException:
-    pass
-
-ext = None
-packages = None
-
 if '--help' not in sys.argv \
-    and '--help-commands' not in sys.argv:
+        and '--help-commands' not in sys.argv:
 
     toolset = ''
     file_ext = '.so'
@@ -90,7 +72,7 @@ if '--help' not in sys.argv \
         elif sys.version_info[0:2] in ((3, 3), (3, 4)):
             toolset = ' toolset=msvc-10.0'
         elif sys.version_info[0:2] in ((3, 5), (3, 6)):
-            toolset = ' toolset=msvc-14'
+            toolset = ' toolset=msvc-14.0'
         else:
             # unknown python version, lets hope the user has the right version of msvc configured
             toolset = ' toolset=msvc'
@@ -109,7 +91,7 @@ if '--help' not in sys.argv \
     os.environ['LIBTORRENT_PYTHON_INTERPRETER'] = '"' + sys.executable + '"'
 
     # build libtorrent using bjam and build the installer with distutils
-    cmdline = ('b2 release optimization=space stage_module --hash' +
+    cmdline = ('bjam release optimization=space stage_module --hash' +
                address_model + toolset + parallel_builds)
     print(cmdline)
     if os.system(cmdline) != 0:
@@ -146,5 +128,5 @@ setup(
     platforms=[platform.system() + '-' + platform.machine()],
     license='BSD',
     packages=['libtorrent'],
-    ext_modules=ext
+    ext_modules=None
 )

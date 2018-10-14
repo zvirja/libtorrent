@@ -729,7 +729,6 @@ LIBSIM_HEADERS = \
   push_warnings.hpp \
   queue.hpp \
   simulator.hpp \
-  simulator.hpp.orig \
   sink.hpp \
   sink_forwarder.hpp \
   socks_server.hpp \
@@ -970,6 +969,7 @@ TEST_EXTRA = Jamfile \
   http.py
 
 dist: FORCE
+	(cd docs; make)
 	rm -rf libtorrent-rasterbar-${VERSION} libtorrent-rasterbar-${VERSION}.tar.gz
 	mkdir libtorrent-rasterbar-${VERSION}
 	rsync -R ${EXTRA_DIST} \
