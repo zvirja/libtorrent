@@ -177,7 +177,6 @@ EXTRA_DIST = \
   cmake/Modules/GeneratePkgConfig/pkg-config.cmake.in \
   cmake/Modules/GeneratePkgConfig/target-compile-settings.cmake.in \
   LibtorrentRasterbarConfig.cmake.in \
-  libtorrent-rasterbar-cmake.pc \
   setup.py \
   LICENSE \
   COPYING \
