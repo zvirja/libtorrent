@@ -30,6 +30,7 @@ matrix:
           - python-aafigure
           - python-pygments
           - graphviz
+          - g++-5
           - libboost1.55-all-dev
           - libboost1.55-tools-dev
     - env: cmake=1 toolset=gcc
