@@ -2087,7 +2087,8 @@ namespace {
 			}
 
 			// in time critical mode, only pick high priority pieces
-			if (!(options & time_critical_mode))
+			// DIRTY_FIX: pick only from peers which have all pieces
+			if ((!(options & time_critical_mode)) && pieces.all_set())
 			{
 				if (options & reverse)
 				{
